@@ -3,4 +3,6 @@
 
 # But not:
 !ft_printf.c
+!ft_putnbr_dec_hex_ptr.c
+!libftprintf.h
 !Makefile
