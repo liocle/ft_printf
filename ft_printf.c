@@ -6,7 +6,7 @@
 /*   By: lclerc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:26:29 by lclerc            #+#    #+#             */
-/*   Updated: 2022/12/09 17:24:43 by lclerc           ###   ########.fr       */
+/*   Updated: 2022/12/13 15:03:00 by lclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@ static	int	format_me(va_list arg_pointer, const char *format)
 
 	if (*format == 'c')
 		i = ft_putchar(va_arg(arg_pointer, int));
-	if (*format == 's')
+	else if (*format == 's')
 		i = ft_putstr(va_arg(arg_pointer, char *));
-	if (*format == 'd' || *format == 'i')
+	else if (*format == 'd' || *format == 'i')
 		i = ft_putnbr(va_arg(arg_pointer, int));
-	if (*format == 'x')
+	else if (*format == 'x')
 		i = ft_putnbr_hexa_lower(va_arg(arg_pointer, unsigned int));
-	if (*format == 'X')
+	else if (*format == 'X')
 		i = ft_putnbr_hexa_upper(va_arg(arg_pointer, unsigned int));
-	if (*format == '%')
+	else if (*format == '%')
 		i = ft_putchar('%');
-	if (*format == 'u')
-		i = ft_putnbr_unsigned(va_arg(arg_pointer, int));
-	if (*format == 'p')
+	else if (*format == 'u')
+		i = ft_putnbr_unsigned(va_arg(arg_pointer, unsigned int));
+	else if (*format == 'p')
 		i = ft_print_pointer((size_t)va_arg(arg_pointer, void *));
+	else
+		i = 0;
 	return (i);
 }
 
@@ -46,8 +48,13 @@ static	int	ft_vprintf(va_list arg_pointer, const char	*format)
 	{
 		if (format[j] == '%')
 		{
-			i += format_me(arg_pointer, &format[++j]);
-			j++;
+			if (format[j + 1] != '\0')
+			{
+				i += format_me(arg_pointer, &format[++j]);
+				j++;
+			}
+			else
+				return (i);
 		}
 		else if (format[j] != '\0')
 		{

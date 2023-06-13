@@ -5,5 +5,5 @@
 !ft_printf.c
 !ft_putnbr_dec_hex_ptr.c
 !ft_utils.c
-!libftprintf.h
+!ft_printf.h
 !Makefile
